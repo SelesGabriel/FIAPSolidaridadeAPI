@@ -1,0 +1,6 @@
+@FIAPSolidaridadeAPI_HostAddress = http://localhost:5249
+
+GET {{FIAPSolidaridadeAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
