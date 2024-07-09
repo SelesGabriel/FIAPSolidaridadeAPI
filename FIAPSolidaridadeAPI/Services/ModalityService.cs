@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FIAPSolidaridadeAPI.Data;
 using FIAPSolidaridadeAPI.DTOs;
+using FIAPSolidaridadeAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIAPSolidaridadeAPI.Services

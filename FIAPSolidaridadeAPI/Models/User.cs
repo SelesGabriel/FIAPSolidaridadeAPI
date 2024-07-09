@@ -1,6 +1,5 @@
-﻿using FIAPSolidaridadeAPI.Models;
-
-namespace FIAPSolidaridadeAPI.DTOs
+﻿
+namespace FIAPSolidaridadeAPI.Models
 {
     public class User
     {
@@ -10,8 +9,9 @@ namespace FIAPSolidaridadeAPI.DTOs
         public string? Password { get; set; }
         public string? Phone { get; set; }
         public string?[] Areas { get; set; }
-        //public UserType UserType { get; set; }
-        //public Address BindingAddress { get; set; }
+
+        public ICollection<UserModality> UserModalities { get; set; }
+        public ICollection<UserAddress> UserAddresses { get; set; }
     }
 
 }

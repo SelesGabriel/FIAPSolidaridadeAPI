@@ -45,7 +45,36 @@ namespace FIAPSolidaridadeAPI.Migrations
                     b.ToTable("Meetings");
                 });
 
-            modelBuilder.Entity("FIAPSolidaridadeAPI.DTOs.Modality", b =>
+            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.Modality", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,13 +95,17 @@ namespace FIAPSolidaridadeAPI.Migrations
                     b.ToTable("Modalities");
                 });
 
-            modelBuilder.Entity("FIAPSolidaridadeAPI.DTOs.User", b =>
+            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Areas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -83,12 +116,58 @@ namespace FIAPSolidaridadeAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.UserModality", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModalityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "ModalityId");
+
+                    b.HasIndex("ModalityId");
+
+                    b.ToTable("UserModalities");
+                });
+
+            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.UserModality", b =>
+                {
+                    b.HasOne("FIAPSolidaridadeAPI.Models.Modality", "Modality")
+                        .WithMany("UserModalities")
+                        .HasForeignKey("ModalityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FIAPSolidaridadeAPI.Models.User", "User")
+                        .WithMany("UserModalities")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Modality");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.Modality", b =>
+                {
+                    b.Navigation("UserModalities");
+                });
+
+            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.User", b =>
+                {
+                    b.Navigation("UserModalities");
                 });
 #pragma warning restore 612, 618
         }
