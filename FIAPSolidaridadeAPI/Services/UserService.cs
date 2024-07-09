@@ -24,7 +24,9 @@ namespace FIAPSolidaridadeAPI.Services
             {
                 Id = user.Id,
                 Name = user.Name,
-                Email = user.Email
+                Email = user.Email,
+                Areas = user.Areas,
+                Phone = user.Phone
             });
         }
 
@@ -37,14 +39,39 @@ namespace FIAPSolidaridadeAPI.Services
             {
                 Id = user.Id,
                 Name = user.Name,
-                Email = user.Email
+                Email = user.Email,
+                Areas = user.Areas,
+                Phone = user.Phone
             };
+        }
+
+        public async Task<List<UserDTO>> GetUsersByAreaAsync(string area)
+        {
+            var users = await _context.Users
+                                      .Where(u => u.Areas.Contains(area))
+                                      .ToListAsync();
+            if (users == null || !users.Any()) return new List<UserDTO>();
+
+            // Converte a lista de usuarios para uma lista de UserDTOs
+            var userDTOs = users.Select(user => new UserDTO
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Areas = user.Areas,
+                Phone = user.Phone
+            }).ToList();
+
+            return userDTOs;
         }
 
         public async Task<UserDTO> CreateUserAsync(UserDTO userDto)
         {
+
             var user = new User
             {
+                Phone = userDto.Phone,
+                Areas = userDto.Areas,
                 Name = userDto.Name,
                 Email = userDto.Email,
                 Password = userDto.Password // Isso deve ser atualizado para armazenar um hash de senha seguro
@@ -55,6 +82,8 @@ namespace FIAPSolidaridadeAPI.Services
 
             return new UserDTO
             {
+                Phone = user.Phone,
+                Areas = user.Areas,
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email

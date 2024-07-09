@@ -1,4 +1,5 @@
 ﻿using FIAPSolidaridadeAPI.DTOs;
+using FIAPSolidaridadeAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIAPSolidaridadeAPI.Data
@@ -12,6 +13,7 @@ namespace FIAPSolidaridadeAPI.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Modality> Modalities { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

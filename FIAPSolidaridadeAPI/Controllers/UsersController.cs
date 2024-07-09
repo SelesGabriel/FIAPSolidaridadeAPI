@@ -31,6 +31,15 @@ namespace FIAPSolidaridadeAPI.Controllers
             return Ok(user);
         }
 
+        [HttpGet("{area}")]
+        public async Task<IActionResult> GetUsersByArea(string area)
+        {
+            var user = await _userService.GetUsersByAreaAsync(area);
+            if (user == null)
+                return NotFound();
+            return Ok(user);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserDTO userDto)
         {

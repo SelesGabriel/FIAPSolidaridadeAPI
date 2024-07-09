@@ -8,6 +8,7 @@ namespace FIAPSolidaridadeAPI.Services
     {
         Task<IEnumerable<UserDTO>> GetAllUsersAsync();
         Task<UserDTO> GetUserByIdAsync(int id);
+        Task<List<UserDTO>> GetUsersByAreaAsync(string area);
         Task<UserDTO> CreateUserAsync(UserDTO userDto);
         Task<UserDTO> UpdateUserAsync(int id, UserDTO userDto);
         Task<bool> DeleteUserAsync(int id);
