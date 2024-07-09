@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/FIAPSolidaridadeAPI/Migrations/20240709165310_InitialCreate.cs
