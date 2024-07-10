@@ -13,7 +13,6 @@ namespace FIAPSolidaridadeAPI.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Modality> Modalities { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<UserModality> UserModalities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,6 +44,7 @@ namespace FIAPSolidaridadeAPI.Data
                 .HasOne(um => um.Modality)
                 .WithMany(m => m.UserModalities)
                 .HasForeignKey(um => um.ModalityId);
+
         }
     }
 }

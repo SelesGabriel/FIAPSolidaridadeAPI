@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 using FIAPSolidaridadeAPI.Data;
 using FIAPSolidaridadeAPI.DTOs;
@@ -12,6 +13,7 @@ namespace FIAPSolidaridadeAPI.Services
     public class UserService : IUserService
     {
         private readonly DatabaseContext _context;
+        private readonly AddressService _addressService;
 
         public UserService(DatabaseContext context)
         {
@@ -68,6 +70,13 @@ namespace FIAPSolidaridadeAPI.Services
 
         public async Task<UserDTO> CreateUserAsync(UserDTO userDto)
         {
+            var address = await _addressService.GetAddressByCepAsync(userDto.Cep);
+
+            if (address == null)
+            {
+                return new UserDTO();
+            }
+
 
             var user = new User
             {

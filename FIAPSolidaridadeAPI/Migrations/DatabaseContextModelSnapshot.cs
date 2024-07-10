@@ -65,11 +65,16 @@ namespace FIAPSolidaridadeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Addresses");
                 });
@@ -141,6 +146,17 @@ namespace FIAPSolidaridadeAPI.Migrations
                     b.ToTable("UserModalities");
                 });
 
+            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.Address", b =>
+                {
+                    b.HasOne("FIAPSolidaridadeAPI.Models.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FIAPSolidaridadeAPI.Models.UserModality", b =>
                 {
                     b.HasOne("FIAPSolidaridadeAPI.Models.Modality", "Modality")
@@ -167,6 +183,8 @@ namespace FIAPSolidaridadeAPI.Migrations
 
             modelBuilder.Entity("FIAPSolidaridadeAPI.Models.User", b =>
                 {
+                    b.Navigation("Addresses");
+
                     b.Navigation("UserModalities");
                 });
 #pragma warning restore 612, 618

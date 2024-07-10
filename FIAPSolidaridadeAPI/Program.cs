@@ -1,6 +1,9 @@
 using FIAPSolidaridadeAPI.Data;
 using FIAPSolidaridadeAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,15 @@ builder.Services.AddScoped<IMeetingService, MeetingService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IModalityService, ModalityService>();
 
+builder.Services.Configure<MongoDbSettings>(options =>
+{
+    options.ConnectionString = builder.Configuration.GetSection("ConnectionStrings:MongoDb").Value;
+    options.DatabaseName = builder.Configuration.GetSection("DatabaseName").Value;
+});
+
+builder.Services.AddSingleton<MongoDbContext>();
+builder.Services.AddHttpClient<ViaCepService>();
+builder.Services.AddScoped<AddressService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

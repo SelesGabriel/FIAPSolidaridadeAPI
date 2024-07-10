@@ -9,9 +9,9 @@ namespace FIAPSolidaridadeAPI.Models
         public string? Password { get; set; }
         public string? Phone { get; set; }
         public string?[] Areas { get; set; }
+        public string Cep { get; set; }
 
         public ICollection<UserModality> UserModalities { get; set; }
-        public ICollection<UserAddress> UserAddresses { get; set; }
     }
 
 }
