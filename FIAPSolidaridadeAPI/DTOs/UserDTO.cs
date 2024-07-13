@@ -9,6 +9,7 @@
         public string? Phone { get; set; }
         public string?[] Areas { get; set; }
         public string Cep { get; set; }
+        public string Region { get; set; }
         // Outros campos relevantes para o usuário
     }
 }

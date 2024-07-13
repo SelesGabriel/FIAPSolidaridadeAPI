@@ -10,6 +10,7 @@ namespace FIAPSolidaridadeAPI.Models
         public string? Phone { get; set; }
         public string?[] Areas { get; set; }
         public string Cep { get; set; }
+        public string Region { get; set; }
 
         public ICollection<UserModality> UserModalities { get; set; }
     }

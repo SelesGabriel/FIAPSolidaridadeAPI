@@ -23,7 +23,7 @@ namespace FIAPSolidaridadeAPI.Services
             var sanitizedCep = cep.Replace("-", "").Trim();
 
             // Verificar no MongoDB
-            var filter = Builders<Address>.Filter.Eq(a => a.Cep, sanitizedCep);
+            var filter = Builders<Address>.Filter.Eq(a => a.Cep, $"{sanitizedCep.Substring(0, 5)}-{sanitizedCep.Substring(5, 3)}");
             var address = await _context.Addresses.Find(filter).FirstOrDefaultAsync();
 
             if (address != null)

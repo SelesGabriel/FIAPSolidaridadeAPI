@@ -6,8 +6,7 @@ namespace FIAPSolidaridadeAPI.Models
     public class Address
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public int Id { get; set; }
+        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
         public string Cep { get; set; }
         public string Logradouro { get; set; }
         public string Complemento { get; set; }

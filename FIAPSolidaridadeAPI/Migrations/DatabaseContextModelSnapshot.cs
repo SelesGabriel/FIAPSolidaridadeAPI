@@ -45,40 +45,6 @@ namespace FIAPSolidaridadeAPI.Migrations
                     b.ToTable("Meetings");
                 });
 
-            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Addresses");
-                });
-
             modelBuilder.Entity("FIAPSolidaridadeAPI.Models.Modality", b =>
                 {
                     b.Property<int>("Id")
@@ -112,6 +78,10 @@ namespace FIAPSolidaridadeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -124,6 +94,10 @@ namespace FIAPSolidaridadeAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -144,17 +118,6 @@ namespace FIAPSolidaridadeAPI.Migrations
                     b.HasIndex("ModalityId");
 
                     b.ToTable("UserModalities");
-                });
-
-            modelBuilder.Entity("FIAPSolidaridadeAPI.Models.Address", b =>
-                {
-                    b.HasOne("FIAPSolidaridadeAPI.Models.User", "User")
-                        .WithMany("Addresses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FIAPSolidaridadeAPI.Models.UserModality", b =>
@@ -183,8 +146,6 @@ namespace FIAPSolidaridadeAPI.Migrations
 
             modelBuilder.Entity("FIAPSolidaridadeAPI.Models.User", b =>
                 {
-                    b.Navigation("Addresses");
-
                     b.Navigation("UserModalities");
                 });
 #pragma warning restore 612, 618

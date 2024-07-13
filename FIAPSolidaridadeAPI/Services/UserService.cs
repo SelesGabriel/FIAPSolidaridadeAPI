@@ -15,9 +15,10 @@ namespace FIAPSolidaridadeAPI.Services
         private readonly DatabaseContext _context;
         private readonly AddressService _addressService;
 
-        public UserService(DatabaseContext context)
+        public UserService(DatabaseContext context, AddressService addressService)
         {
             _context = context;
+            _addressService = addressService;
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
@@ -29,7 +30,9 @@ namespace FIAPSolidaridadeAPI.Services
                 Name = user.Name,
                 Email = user.Email,
                 Areas = user.Areas,
-                Phone = user.Phone
+                Phone = user.Phone,
+                Cep = user.Cep,
+                Region = user.Region,
             });
         }
 
@@ -44,7 +47,9 @@ namespace FIAPSolidaridadeAPI.Services
                 Name = user.Name,
                 Email = user.Email,
                 Areas = user.Areas,
-                Phone = user.Phone
+                Phone = user.Phone,
+                Cep = user.Cep,
+                Region = user.Region,
             };
         }
 
@@ -62,7 +67,32 @@ namespace FIAPSolidaridadeAPI.Services
                 Name = user.Name,
                 Email = user.Email,
                 Areas = user.Areas,
-                Phone = user.Phone
+                Phone = user.Phone,
+                Cep = user.Cep,
+                Region = user.Region,
+            }).ToList();
+
+            return userDTOs;
+        }
+
+        public async Task<List<UserDTO>> GetUsersByRegionAsync(string region)
+        {
+
+            var users = await _context.Users
+                                      .Where(u => u.Region.Contains(region))
+                                      .ToListAsync();
+            if (users == null || !users.Any()) return new List<UserDTO>();
+
+            // Converte a lista de usuarios para uma lista de UserDTOs
+            var userDTOs = users.Select(user => new UserDTO
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Areas = user.Areas,
+                Phone = user.Phone,
+                Cep = user.Cep,
+                Region = user.Region,
             }).ToList();
 
             return userDTOs;
@@ -84,6 +114,8 @@ namespace FIAPSolidaridadeAPI.Services
                 Areas = userDto.Areas,
                 Name = userDto.Name,
                 Email = userDto.Email,
+                Cep = userDto.Cep,
+                Region = string.Concat(address.Uf + " - " + address.Localidade),
                 Password = userDto.Password // Isso deve ser atualizado para armazenar um hash de senha seguro
             };
 
@@ -96,7 +128,9 @@ namespace FIAPSolidaridadeAPI.Services
                 Areas = user.Areas,
                 Id = user.Id,
                 Name = user.Name,
-                Email = user.Email
+                Email = user.Email,
+                Cep= user.Cep,
+                Region = user.Region,
             };
         }
 
@@ -114,9 +148,13 @@ namespace FIAPSolidaridadeAPI.Services
 
             return new UserDTO
             {
+                Phone = user.Phone,
+                Areas = user.Areas,
                 Id = user.Id,
                 Name = user.Name,
-                Email = user.Email
+                Email = user.Email,
+                Cep = user.Cep,
+                Region = user.Region,
             };
         }
 

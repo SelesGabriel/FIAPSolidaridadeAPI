@@ -31,10 +31,19 @@ namespace FIAPSolidaridadeAPI.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{area}")]
+        [HttpGet("area/{area}")]
         public async Task<IActionResult> GetUsersByArea(string area)
         {
             var user = await _userService.GetUsersByAreaAsync(area);
+            if (user == null)
+                return NotFound();
+            return Ok(user);
+        }
+
+        [HttpGet("region/{region}")]
+        public async Task<IActionResult> GetUsersByRegion(string region)
+        {
+            var user = await _userService.GetUsersByRegionAsync(region);
             if (user == null)
                 return NotFound();
             return Ok(user);
