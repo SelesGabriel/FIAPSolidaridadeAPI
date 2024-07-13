@@ -105,3 +105,13 @@ Para este projeto, a recomendação é usar uma abordagem híbrida, combinando S
 - **Consistência e Integridade:** SQL é ideal para dados que requerem consistência e integridade, como informações de usuários e relacionamentos entre modalidades de trabalho.
 - **Flexibilidade e Desempenho:** NoSQL é adequado para dados geográficos e consultas que necessitam de flexibilidade e alta performance, como a busca por pontos de encontro.
 - **Escalabilidade:** A combinação permite que o sistema escale horizontalmente para grandes volumes de dados geoespaciais e mantenha a integridade de dados estruturados.
+
+
+## Instruções para executar o projeto:
+   - SQL Server:
+     - Abra o projeto;
+     - Aplique o Migrations (add-migration teste > update-database)
+   - MongoDB
+     - Crie um banco de dados com o nome 'FiapSolidaridade'
+     - Crie uma collection com o nome Addresses
+- Basta rodar o projeto e realizar os testes.
