@@ -12,7 +12,6 @@ namespace FIAPSolidaridadeAPI.Models
         public string Cep { get; set; }
         public string Region { get; set; }
 
-        public ICollection<UserModality> UserModalities { get; set; }
     }
 
 }
