@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35017.193
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAPSolidaridadeAPI", "FIAPSolidaridadeAPI\FIAPSolidaridadeAPI.csproj", "{CEBF110D-498F-4945-B50D-EBAB23E7F822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIAPSolidaridadeAPI", "FIAPSolidaridadeAPI\FIAPSolidaridadeAPI.csproj", "{CEBF110D-498F-4945-B50D-EBAB23E7F822}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAPSolidaridadeAPI.Test", "FIAPSolidaridadeAPI.Test\FIAPSolidaridadeAPI.Test.csproj", "{E013AB8C-F2DF-48D3-B3A0-355C0496E22C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{CEBF110D-498F-4945-B50D-EBAB23E7F822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEBF110D-498F-4945-B50D-EBAB23E7F822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEBF110D-498F-4945-B50D-EBAB23E7F822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E013AB8C-F2DF-48D3-B3A0-355C0496E22C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E013AB8C-F2DF-48D3-B3A0-355C0496E22C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E013AB8C-F2DF-48D3-B3A0-355C0496E22C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E013AB8C-F2DF-48D3-B3A0-355C0496E22C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
