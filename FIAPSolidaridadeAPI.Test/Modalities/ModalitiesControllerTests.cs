@@ -1,5 +1,7 @@
 ﻿using FIAPSolidaridadeAPI.Controllers;
 using FIAPSolidaridadeAPI.DTOs;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace FIAPSolidaridadeAPI.Test.Modalities;
@@ -28,7 +30,10 @@ public class ModalitiesControllerTests
 
         var result = await _controller.GetAllModalities();
 
+        var okResult = result as OkObjectResult;
+
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, okResult!.StatusCode);
     }
 
     [Fact(DisplayName = "ModalitiesController_GetModalityById_ReturnWithSuccess")]
@@ -41,8 +46,20 @@ public class ModalitiesControllerTests
             .ReturnsAsync(modalitiesDTO!);
 
         var result = await _controller.GetModalityById(It.IsAny<int>());
+        var okResult = result as OkObjectResult;
 
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, okResult!.StatusCode);
+    }
+
+    [Fact(DisplayName = "ModalitiesController_GetModalityById_ReturnNotFound")]
+    public async Task ModalitiesController_GetModalityById_ReturnNotFound()
+    {
+        var result = await _controller.GetModalityById(It.IsAny<int>());
+        var notFoundResult = result as NotFoundResult;
+
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status404NotFound, notFoundResult!.StatusCode);
     }
 
 
@@ -57,7 +74,10 @@ public class ModalitiesControllerTests
 
         var result = await _controller.CreateModality(It.IsAny<ModalityDTO>());
 
+        var okResult = result as CreatedAtActionResult;
+
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status201Created, okResult!.StatusCode);
     }
 
 
@@ -72,7 +92,21 @@ public class ModalitiesControllerTests
 
         var result = await _controller.UpdateModality(It.IsAny<int>(), It.IsAny<ModalityDTO>());
 
+        var okResult = result as OkObjectResult;
+
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, okResult!.StatusCode);
+    }
+
+    [Fact(DisplayName = "ModalitiesController_UpdateModality_ReturnNotFound")]
+    public async Task ModalitiesController_UpdateModality_ReturnNotFound()
+    {
+        var result = await _controller.UpdateModality(It.IsAny<int>(), It.IsAny<ModalityDTO>());
+
+        var notFoundResult = result as NotFoundResult;
+
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status404NotFound, notFoundResult!.StatusCode);
     }
 
     [Fact(DisplayName = "ModalitiesController_DeleteModality_ReturnWithSuccess")]
@@ -84,6 +118,19 @@ public class ModalitiesControllerTests
 
         var result = await _controller.DeleteModality(It.IsAny<int>());
 
+        var okResult = result as NoContentResult;
+
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status204NoContent, okResult!.StatusCode);
+    }
+
+    [Fact(DisplayName = "ModalitiesController_DeleteModality_ReturnNotFound")]
+    public async Task ModalitiesController_DeleteModality_ReturnNotFound()
+    {
+        var result = await _controller.DeleteModality(It.IsAny<int>());
+        var notFoundResult = result as NotFoundResult;
+
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status404NotFound, notFoundResult!.StatusCode);
     }
 }
