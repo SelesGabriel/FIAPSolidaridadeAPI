@@ -100,7 +100,7 @@ public class MeetingControllerTests
     public async Task MeetingController_UpdateMeeting_ReturnNotFound()
     {
         var result = await _controller.UpdateMeeting(It.IsAny<int>(), It.IsAny<MeetingDTO>());
-        var notFoundResult = result as Microsoft.AspNetCore.Mvc.NotFoundResult;
+        var notFoundResult = result as NotFoundResult;
 
         Assert.NotNull(result);
         Assert.Equal(StatusCodes.Status404NotFound, notFoundResult!.StatusCode);
@@ -127,7 +127,7 @@ public class MeetingControllerTests
     {
         var result = await _controller.DeleteMeeting(It.IsAny<int>());
 
-        var notFoundResult = result as Microsoft.AspNetCore.Mvc.NotFoundResult;
+        var notFoundResult = result as NotFoundResult;
 
         Assert.NotNull(result);
         Assert.Equal(StatusCodes.Status404NotFound, notFoundResult!.StatusCode);
