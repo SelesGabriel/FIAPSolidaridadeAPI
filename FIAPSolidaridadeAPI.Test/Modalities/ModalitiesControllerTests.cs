@@ -1,12 +1,6 @@
 ﻿using FIAPSolidaridadeAPI.Controllers;
 using FIAPSolidaridadeAPI.DTOs;
-using FIAPSolidaridadeAPI.Test.Meetings;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FIAPSolidaridadeAPI.Test.Modalities;
 
@@ -70,11 +64,11 @@ public class ModalitiesControllerTests
     [Fact(DisplayName = "ModalitiesController_UpdateModality_ReturnWithSuccess")]
     public async Task ModalitiesController_UpdateModality_ReturnWithSuccess()
     {
-        var meetingDTO = _fixture.GenerateModalitiesDTO(1).FirstOrDefault();
+        var modalityDTO = _fixture.GenerateModalitiesDTO(1).FirstOrDefault();
 
         _fixture.ModalityServiceMock?
             .Setup(m => m.UpdateModalityAsync(It.IsAny<int>(), It.IsAny<ModalityDTO>()))
-            .ReturnsAsync(meetingDTO!);
+            .ReturnsAsync(modalityDTO!);
 
         var result = await _controller.UpdateModality(It.IsAny<int>(), It.IsAny<ModalityDTO>());
 

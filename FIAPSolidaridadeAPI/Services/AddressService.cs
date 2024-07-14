@@ -20,17 +20,21 @@ namespace FIAPSolidaridadeAPI.Services
 
         public async Task<Address> GetAddressByCepAsync(string cep)
         {
+            var address = new Address();
             var sanitizedCep = cep.Replace("-", "").Trim();
 
             // Verificar no MongoDB
             var filter = Builders<Address>.Filter.Eq(a => a.Cep, $"{sanitizedCep.Substring(0, 5)}-{sanitizedCep.Substring(5, 3)}");
-            var address = await _context.Addresses.Find(filter).FirstOrDefaultAsync();
-
-            if (address != null)
+            if (_context is not null && _context.Addresses is not null)
             {
-                return address;
-            }
+                address = await _context.Addresses.Find(filter).FirstOrDefaultAsync();
 
+                if (address != null)
+                {
+                    return address;
+                }
+            }
+            
             // Consultar a API do ViaCEP se não encontrado no MongoDB
             var addressResponse = await _viaCepService.GetAddressAsync(sanitizedCep);
 
@@ -50,7 +54,8 @@ namespace FIAPSolidaridadeAPI.Services
                 };
 
                 // Armazenar no MongoDB
-                await _context.Addresses.InsertOneAsync(address);
+                if (_context is not null)
+                    await _context.Addresses!.InsertOneAsync(address);
             }
 
             return address;

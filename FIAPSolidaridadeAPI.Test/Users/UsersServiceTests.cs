@@ -1,10 +1,5 @@
 ﻿using FIAPSolidaridadeAPI.Services;
-using FIAPSolidaridadeAPI.Test.Modalities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FIAPSolidaridadeAPI.Test.Users;
 
@@ -77,9 +72,9 @@ public class UsersServiceTests
         await _fixture.Context!.Users!.AddAsync(user!);
         await _fixture.Context.SaveChangesAsync();
 
-        var modalityDTO = _fixture.GenerateUsersDTO(1).FirstOrDefault();
+        var userDTO = _fixture.GenerateUsersDTO(1).FirstOrDefault();
 
-        var result = await _service.UpdateUserAsync(user!.Id, modalityDTO!);
+        var result = await _service.UpdateUserAsync(user!.Id, userDTO!);
 
         Assert.NotNull(result);
     }

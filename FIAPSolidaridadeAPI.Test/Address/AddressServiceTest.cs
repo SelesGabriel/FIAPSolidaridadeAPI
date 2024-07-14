@@ -1,11 +1,4 @@
 ﻿using FIAPSolidaridadeAPI.Services;
-using FIAPSolidaridadeAPI.Test.Meetings;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FIAPSolidaridadeAPI.Test.Address;
 
@@ -24,7 +17,7 @@ public class AddressServiceTest
     [Fact(DisplayName = "AddressService_GetAddressByCepAsync_ReturnWithSuccess")]
     public async Task AddressService_GetAddressByCepAsync_ReturnWithSuccess()
     {
-        var cep = "08222-010";
+        var cep = "01310-930";
 
         var result = await _service.GetAddressByCepAsync(cep);
 
