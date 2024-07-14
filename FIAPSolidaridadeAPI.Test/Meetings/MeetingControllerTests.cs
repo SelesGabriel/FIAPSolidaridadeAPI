@@ -1,11 +1,8 @@
 ﻿using FIAPSolidaridadeAPI.Controllers;
 using FIAPSolidaridadeAPI.DTOs;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Web.Http;
-using System.Web.Http.Results;
 
 namespace FIAPSolidaridadeAPI.Test.Meetings;
 
