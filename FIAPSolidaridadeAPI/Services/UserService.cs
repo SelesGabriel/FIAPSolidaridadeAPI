@@ -139,6 +139,7 @@ namespace FIAPSolidaridadeAPI.Services
             var user = await _context.Users.FindAsync(id);
             if (user == null) return null;
 
+            var address = await _addressService.GetAddressByCepAsync(userDto.Cep);
             user.Name = userDto.Name;
             user.Email = userDto.Email;
             // Atualize outros campos conforme necessário
@@ -154,7 +155,7 @@ namespace FIAPSolidaridadeAPI.Services
                 Name = user.Name,
                 Email = user.Email,
                 Cep = user.Cep,
-                Region = user.Region,
+                Region = string.Concat(address.Uf + " - " + address.Localidade),
             };
         }
 
