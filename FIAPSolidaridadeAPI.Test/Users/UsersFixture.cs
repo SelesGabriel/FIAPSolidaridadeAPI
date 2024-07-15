@@ -15,7 +15,11 @@ public class UsersTestCollection : ICollectionFixture<UsersTestFixture> { }
 public class UsersTestFixture
 {
     public Mock<IUserService>? IUserServiceMock { get; set; }
+    public AddressService? AddressService { get; set; }
+    public ViaCepService? ViaCepService { get; set; }
     public DatabaseContext? Context { get; set; }
+
+    public Mock<ViaCepService>? ViaCepServiceMock { get; set; }
 
     public IUserService GetService()
     {
@@ -26,8 +30,10 @@ public class UsersTestFixture
         var mocker = new AutoMoqer();
 
         IUserServiceMock = mocker.GetMock<IUserService>();
+        ViaCepService = new ViaCepService(new HttpClient());
+        AddressService = new AddressService(null, ViaCepService);
 
-        return new UserService(Context);
+        return new UserService(Context, AddressService);
     }
 
     public List<UserDTO> GenerateUsersDTO(int quantity = 1)
@@ -38,7 +44,7 @@ public class UsersTestFixture
                 Id = f.Random.Int(),
                 Name = f.Person.FirstName,
                 Areas = new string[1],
-                Cep = f.Random.Int(8).ToString(),
+                Cep = "01310-930",
                 Email = f.Person.Email,
                 Password = f.Random.String(8),
                 Phone = f.Phone.PhoneNumber()
@@ -58,7 +64,8 @@ public class UsersTestFixture
                 Cep = f.Random.Int(8).ToString(),
                 Email = f.Person.Email,
                 Password = f.Random.String(8),
-                Phone = f.Phone.PhoneNumber()
+                Phone = f.Phone.PhoneNumber(),
+                Region = f.Random.String()
             })
             .Generate(quantity);
     }

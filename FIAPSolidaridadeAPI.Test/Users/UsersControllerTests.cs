@@ -1,5 +1,7 @@
 ﻿using FIAPSolidaridadeAPI.Controllers;
 using FIAPSolidaridadeAPI.DTOs;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace FIAPSolidaridadeAPI.Test.Users;
@@ -26,9 +28,12 @@ public class UsersControllerTests
             .Setup(m => m.GetAllUsersAsync())
             .ReturnsAsync(usersDTO);
 
-        var result = await _controller.GetAllUsers ();
+        var result = await _controller.GetAllUsers();
+
+        var okResult = result as OkObjectResult;
 
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, okResult!.StatusCode);
     }
 
     [Fact(DisplayName = "UsersController_GetModalityById_ReturnWithSuccess")]
@@ -42,7 +47,21 @@ public class UsersControllerTests
 
         var result = await _controller.GetUserById(It.IsAny<int>());
 
+        var okResult = result as OkObjectResult;
+
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, okResult!.StatusCode);
+    }
+
+    [Fact(DisplayName = "UsersController_GetModalityById_ReturnNotFound")]
+    public async Task UsersController_GetModalityById_ReturnNotFound()
+    {
+        var result = await _controller.GetUserById(It.IsAny<int>());
+
+        var notFoundResult = result as NotFoundResult;
+
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status404NotFound, notFoundResult!.StatusCode);
     }
 
     [Fact(DisplayName = "UsersController_GetUsersByArea_ReturnWithSuccess")]
@@ -71,7 +90,10 @@ public class UsersControllerTests
 
         var result = await _controller.CreateUser(It.IsAny<UserDTO>());
 
+        var okResult = result as CreatedAtActionResult;
+
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status201Created, okResult!.StatusCode);
     }
 
 
@@ -86,7 +108,21 @@ public class UsersControllerTests
 
         var result = await _controller.UpdateUser(It.IsAny<int>(), It.IsAny<UserDTO>());
 
+        var okResult = result as OkObjectResult;
+
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, okResult!.StatusCode);
+    }
+
+    [Fact(DisplayName = "UsersController_UpdateUser_ReturnNotFound")]
+    public async Task UsersController_UpdateUser_ReturnNotFound()
+    {
+        var result = await _controller.UpdateUser(It.IsAny<int>(), It.IsAny<UserDTO>());
+
+        var notFoundResult = result as NotFoundResult;
+
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status404NotFound, notFoundResult!.StatusCode);
     }
 
     [Fact(DisplayName = "UsersController_DeleteUser_ReturnWithSuccess")]
@@ -98,6 +134,20 @@ public class UsersControllerTests
 
         var result = await _controller.DeleteUser(It.IsAny<int>());
 
+        var okResult = result as NoContentResult;
+
         Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status204NoContent, okResult!.StatusCode);
+    }
+
+    [Fact(DisplayName = "UsersController_DeleteUser_ReturnNotFound")]
+    public async Task UsersController_DeleteUser_ReturnNotFound()
+    {
+        var result = await _controller.DeleteUser(It.IsAny<int>());
+
+        var notFoundResult = result as NotFoundResult;
+
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status404NotFound, notFoundResult!.StatusCode);
     }
 }
